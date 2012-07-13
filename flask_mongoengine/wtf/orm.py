@@ -5,7 +5,8 @@ from operator import itemgetter
 from wtforms import fields as f, validators
 from mongoengine import ReferenceField
 
-from flask.ext.mongoengine.wtf.fields import ModelSelectField, ModelSelectMultipleField
+from flask.ext.mongoengine.wtf.fields import ModelSelectField, ModelSelectMultipleField, \
+                                             DateTimePickerWidget
 from flask.ext.mongoengine.wtf.models import ModelForm
 
 __all__ = (
@@ -123,6 +124,7 @@ class ModelConverter():
 
     @converts('DateTimeField')
     def conv_DateTime(self, model, field, kwargs):
+        kwargs['widget'] = DateTimePickerWidget()
         return f.DateTimeField(**kwargs)
 
     @converts('BinaryField')
@@ -130,7 +132,7 @@ class ModelConverter():
         #TODO: may be set file field that will save file`s data to MongoDB
         if field.max_bytes:
             kwargs['validators'].append(validators.Length(max=field.max_bytes))
-        return f.TextAreaField(**kwargs)
+        return f.FileField(**kwargs)
 
     @converts('DictField')
     def conv_Dict(self, model, field, kwargs):
@@ -148,7 +150,7 @@ class ModelConverter():
             'validators': [],
             'filters': [],
         }
-        return f.FieldList(unbound_field, min_entries=0, **kwargs)
+        return f.FieldList(unbound_field, min_entries=1, **kwargs)
 
     @converts('SortedListField')
     def conv_SortedList(self, model, field, kwargs):

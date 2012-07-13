@@ -114,3 +114,14 @@ class ModelSelectMultipleField(QuerySetSelectMultipleField):
     def __init__(self, label=u'', validators=None, model=None, **kwargs):
         queryset = kwargs.pop('queryset', model.objects)
         super(ModelSelectMultipleField, self).__init__(label, validators, queryset=queryset, **kwargs)
+
+
+class DateTimePickerWidget(widgets.TextInput):
+    """TextInput widget that adds a 'datetimepicker' class to the html
+    adds a UI widget for datetime picking.
+    """
+    def __call__(self, field, **kwargs):
+        c = kwargs.pop('class', '') or kwargs.pop('class_', '')
+        kwargs['class'] = u'datetimepicker %s' % c
+        return super(DateTimePickerWidget, self).__call__(field, **kwargs)
+

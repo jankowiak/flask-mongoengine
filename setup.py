@@ -22,8 +22,8 @@ except:
 
 setup(
     name='flask-mongoengine',
-    version='0.4',
-    url='https://github.com/mongoengine/flask-mongoengine',
+    version='0.4.1',
+    url='https://github.com/jankowiak/flask-mongoengine',
     license='BSD',
     author='Ross Lawley',
     author_email='ross.lawley@gmail.com',
@@ -32,11 +32,11 @@ setup(
     test_suite='nose.collector',
     zip_safe=False,
     platforms='any',
-    install_requires=[
-        'Flask>=0.8',
-        'mongoengine',
-        'flask-wtf'
-    ],
+    #install_requires=[
+    #    'Flask>=0.8',
+    #    'mongoengine',
+    #    'flask-wtf'
+    #],
     packages=['flask_mongoengine',
               'flask_mongoengine.wtf'],
     include_package_data=True,
